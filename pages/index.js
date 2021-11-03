@@ -1,21 +1,9 @@
 import Head from "next/head";
 import Image from "next/image";
 import styles from "../styles/Home.module.css";
-import Link from "next/link";
-import Profile from "./posts/Profile";
-import { getSortedPostsData } from "../lib/posts";
-import Layout from "../components/layout";
+import Todo from "../pages/Todo/Todo";
 
-export async function getStaticProps() {
-  const allPostsData = getSortedPostsData();
-  return {
-    props: {
-      allPostsData,
-    },
-  };
-}
-
-export default function Home({ allPostsData }) {
+export default function Home() {
   return (
     <div className={styles.container}>
       <Head>
@@ -24,18 +12,12 @@ export default function Home({ allPostsData }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className={styles.main}>
-        <h1 className={"title"}>
-          Read{" "}
-          <Link href={"/posts/first-post"}>
-            <a>this page!</a>
-          </Link>{" "}
-        </h1>
-        <h1 className={styles.title}>
-          Learn <a href="https://nextjs.org">Next.js!</a>
-        </h1>
+      <Todo />
 
-        <Profile></Profile>
+      <main className={styles.main}>
+        <h1 className={styles.title}>
+          Welcome to <a href="https://nextjs.org">Next.js!</a>
+        </h1>
 
         <p className={styles.description}>
           Get started by editing{" "}
@@ -85,26 +67,6 @@ export default function Home({ allPostsData }) {
           </span>
         </a>
       </footer>
-
-      <div>
-        {/* 기존의 코드는 그대로. */}
-
-        {/* 아래 <section> 태그로 감싸진 부분을 추가해준다. */}
-        <section>
-          <h2>Blog</h2>
-          <ul>
-            {allPostsData.map(({ id, date, title }) => (
-              <li key={id}>
-                {title}
-                <br />
-                {id}
-                <br />
-                {date}
-              </li>
-            ))}
-          </ul>
-        </section>
-      </div>
     </div>
   );
 }
